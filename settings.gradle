@@ -1,2 +1,3 @@
+include ':BillingHelper'
 include ':app'
 rootProject.name = "BillingHelperLibrary"
