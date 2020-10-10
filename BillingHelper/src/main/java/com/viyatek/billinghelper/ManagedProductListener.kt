@@ -1,4 +1,6 @@
 package com.viyatek.helper.BillingHelper
 
+import com.viyatek.billinghelper.IManagedProductPurchase
+
 interface ManagedProductListener : IRestoreManagedProducts, PurchaseListener,
-    IManagedProductsSkuDetails
+    IManagedProductsSkuDetails, IManagedProductPurchase
