@@ -7,19 +7,17 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetailsParams
 
-class BillingManager(val context: Context, val inAppPurchaseListener: InAppPurchaseListener) : BaseBillingClass(context) {
+class BillingManager(private val context: Context, private val inAppPurchaseListener: InAppPurchaseListener) : BaseBillingClass(context) {
 
 
     private var isConnected: Boolean = false
     private var subs_skuList: List<String> = ArrayList()
     private var managedProductsSkuList : List<String> = ArrayList()
 
-
     fun init(subscriptionSkuList: List<String>, managedProductsSkuList: List<String>) {
-
        this.subs_skuList = subscriptionSkuList
        this.managedProductsSkuList = managedProductsSkuList
-        super.startProcess()
+       super.startProcess()
     }
 
     override fun ConnectedGooglePlay() {
@@ -27,15 +25,7 @@ class BillingManager(val context: Context, val inAppPurchaseListener: InAppPurch
         querySkuDetails()
     }
 
-     override fun PurchaseCanceledByUser(purchase: Purchase?) {
-         inAppPurchaseListener.PurchaseCanceledByUser(purchase)
-     }
-
-     override fun PurchaseError(purchase: Purchase?, billingResponseCode: Int) {
-         inAppPurchaseListener.PurchaseError(purchase, billingResponseCode)
-     }
-
-     override fun HandlePurchase(purchase: Purchase) {
+    override fun handlePurchase(purchase: Purchase) {
          val sku = purchase.sku
 
          if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
@@ -50,15 +40,11 @@ class BillingManager(val context: Context, val inAppPurchaseListener: InAppPurch
          }
      }
 
-
-
     private fun queryPurchases() {
-        QuerySubscriptions()
-        QueryInAppProducts()
+        querySubscriptions()
     }
 
-
-    private fun QueryInAppProducts() {
+    private fun queryInAppProducts() {
         val inApppurchasesResult = getBillingClient().queryPurchases(BillingClient.SkuType.INAPP)
 
         val boughtManagedProducts = inApppurchasesResult.purchasesList
@@ -72,7 +58,7 @@ class BillingManager(val context: Context, val inAppPurchaseListener: InAppPurch
         }
     }
 
-    private fun QuerySubscriptions() {
+    private fun querySubscriptions() {
         val purchasesResult = getBillingClient().queryPurchases(BillingClient.SkuType.SUBS)
 
         var activePurchase: Purchase
@@ -92,15 +78,16 @@ class BillingManager(val context: Context, val inAppPurchaseListener: InAppPurch
             //make interface call
             //Active Purchase Found
             inAppPurchaseListener.ActiveSubscriptionDataFetched(activePurchase)
+            queryInAppProducts()
 
         } else {
             inAppPurchaseListener.NoActiveSubscriptionCanFetched()
+            queryInAppProducts()
             //NoSubsCanBeFound Make a Pref Check
         }
     }
 
-
-    fun querySkuDetails() {
+    private fun querySkuDetails() {
 
         Log.d("Subscription", "Sent Sku Names to Server " + subs_skuList.size)
 
@@ -123,7 +110,18 @@ class BillingManager(val context: Context, val inAppPurchaseListener: InAppPurch
 
         }
 
-    }
+        val sku_params = SkuDetailsParams.newBuilder()
 
+        sku_params.setSkusList(managedProductsSkuList).setType(BillingClient.SkuType.INAPP)
+        getBillingClient().querySkuDetailsAsync(sku_params.build()) { billingResult, skuDetailsList ->
+
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && skuDetailsList != null) {
+
+                inAppPurchaseListener.ManagedProductsSkuFetched(skuDetailsList)
+            }
+        }
+
+
+    }
 
 }

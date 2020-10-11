@@ -6,7 +6,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetailsParams
 
-class BillingSubscribeManager(val context: Context,val subscriptionListener: SubscriptionListener) : BaseBillingClass(context) {
+class BillingSubscribeManager(private val context: Context, private val subscriptionListener: SubscriptionListener) : BaseBillingClass(context) {
 
     var subscriptionSkuList = arrayListOf<String>()
 
@@ -22,15 +22,7 @@ class BillingSubscribeManager(val context: Context,val subscriptionListener: Sub
 
      }
 
-     override fun PurchaseCanceledByUser(purchase: Purchase?) {
-         subscriptionListener.PurchaseCanceledByUser(purchase)
-     }
-
-     override fun PurchaseError(purchase: Purchase?, billingResponseCode: Int) {
-         subscriptionListener.PurchaseError(purchase , billingResponseCode)
-     }
-
-     override fun HandlePurchase(purchase: Purchase) {
+     override fun handlePurchase(purchase: Purchase) {
          val sku = purchase.sku
 
          if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED ) {

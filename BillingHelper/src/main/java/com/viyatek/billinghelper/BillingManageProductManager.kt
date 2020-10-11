@@ -7,10 +7,10 @@ import com.android.billingclient.api.SkuDetailsParams
 
 class BillingManageProductManager(
     context: Context,
-    val managedProductListener: ManagedProductListener
+    private val managedProductListener: ManagedProductListener
 ) : BaseBillingClass(context) {
 
-    var managedProductSkuList = arrayListOf<String>()
+    private var managedProductSkuList = arrayListOf<String>()
 
     fun init(managedProductSkuList: ArrayList<String>) {
         this.managedProductSkuList = managedProductSkuList
@@ -57,15 +57,7 @@ class BillingManageProductManager(
     }
 
 
-    override fun PurchaseCanceledByUser(purchase: Purchase?) {
-        managedProductListener.PurchaseCanceledByUser(purchase)
-    }
-
-    override fun PurchaseError(purchase: Purchase?, billingResponseCode: Int) {
-        managedProductListener.PurchaseError(purchase, billingResponseCode)
-    }
-
-    override fun HandlePurchase(purchase: Purchase) {
+    override fun handlePurchase(purchase: Purchase) {
         managedProductListener.ManagedProductPurchaseSucceded(purchase)
     }
 

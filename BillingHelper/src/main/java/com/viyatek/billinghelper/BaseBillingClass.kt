@@ -8,9 +8,7 @@ abstract class BaseBillingClass (context: Context) {
     private var isConnected: Boolean = false
 
     protected abstract fun ConnectedGooglePlay()
-    protected abstract fun PurchaseCanceledByUser(purchase: Purchase?)
-    protected abstract fun PurchaseError (purchase: Purchase?, billingResponseCode: Int)
-    protected abstract fun HandlePurchase(purchase: Purchase)
+
 
 
     private val purchaseUpdateListener =
@@ -18,13 +16,13 @@ abstract class BaseBillingClass (context: Context) {
             // To be implemented in a later section.
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK && purchases != null) {
                 for (purchase in purchases) {
-                    HandlePurchase(purchase)
+                    handlePurchase(purchase)
                 }
             } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-                PurchaseCanceledByUser(purchases?.get(0))
+                purchaseCanceledByUser(purchases?.get(0))
                 // Handle an error caused by a user cancelling the purchase flow.
             } else {
-                PurchaseError(purchases?.get(0), billingResult.responseCode)
+                purchaseError(purchases?.get(0), billingResult.responseCode)
                 // Handle any other error codes.
             }
         }
@@ -56,10 +54,10 @@ abstract class BaseBillingClass (context: Context) {
 
     protected fun startProcess() {SetUpConnection()}
 
-    open fun getBillingClient() : BillingClient
-    {return billingClient}
-
-    open fun getConnectionStatus() : Boolean
-    {return  isConnected}
+    protected open fun handlePurchase(purchase: Purchase) {}
+    protected open fun getBillingClient() : BillingClient {return billingClient}
+    protected open fun getConnectionStatus() : Boolean {return  isConnected}
+    protected open fun purchaseCanceledByUser(purchase: Purchase?) {}
+    protected open fun purchaseError (purchase: Purchase?, billingResponseCode: Int) {}
 
 }

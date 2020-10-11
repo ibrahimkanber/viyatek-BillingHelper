@@ -4,30 +4,16 @@ import android.content.Context
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
 import com.viyatek.helper.BillingHelper.BaseBillingClass
-import com.viyatek.helper.BillingHelper.IRestoreSubscription
 
-class SoldProductsRestoreManager(context: Context, val subscriptionRestoreListener : IRestoreSubscription) : BaseBillingClass(context) {
+class ProductRestoreManager (context: Context, private val productRestoreListener: ProductRestoreListener) :
+    BaseBillingClass(context) {
 
-    fun init()
-    { startProcess()}
+    fun init() { startProcess() }
 
     override fun ConnectedGooglePlay() {
-        QuerySubscriptions()
+        querySubscriptions()
     }
-
-    override fun PurchaseCanceledByUser(purchase: Purchase?) {
-       // TODO("Not yet implemented")
-    }
-
-    override fun PurchaseError(purchase: Purchase?, billingResponseCode: Int) {
-       // TODO("Not yet implemented")
-    }
-
-    override fun HandlePurchase(purchase: Purchase) {
-       // TODO("Not yet implemented")
-    }
-
-    private fun QuerySubscriptions() {
+    private fun querySubscriptions() {
         val purchasesResult = getBillingClient().queryPurchases(BillingClient.SkuType.SUBS)
 
         var activePurchase: Purchase
@@ -46,11 +32,26 @@ class SoldProductsRestoreManager(context: Context, val subscriptionRestoreListen
 
             //make interface call
             //Active Purchase Found
-            subscriptionRestoreListener.ActiveSubscriptionDataFetched(activePurchase)
+            productRestoreListener.ActiveSubscriptionDataFetched(activePurchase)
+            queryInAppProducts()
 
         } else {
-            subscriptionRestoreListener.NoActiveSubscriptionCanFetched()
+            productRestoreListener.NoActiveSubscriptionCanFetched()
+            queryInAppProducts()
             //NoSubsCanBeFound Make a Pref Check
+        }
+    }
+    private fun queryInAppProducts() {
+        val inApppurchasesResult = getBillingClient().queryPurchases(BillingClient.SkuType.INAPP)
+
+        val boughtManagedProducts = inApppurchasesResult.purchasesList
+
+        if (boughtManagedProducts != null && boughtManagedProducts.size > 0) {
+            for (purchase in boughtManagedProducts) {
+
+                productRestoreListener.SoldManagedProductsFetched(purchase)
+
+            }
         }
     }
 }
