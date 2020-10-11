@@ -61,4 +61,6 @@ This class handle whole process if you have both subscription and managed produc
 
         })
         
-        billingManager.init( SubsSkuList , ManagedProductSkuList )
+        //You should provide your sku ids tot he billing manager
+            billingManager.init(arrayListOf<String>("monthly_subscription", "yearly_subscription"),
+                            arrayListOf<String>("premium_sku"))
