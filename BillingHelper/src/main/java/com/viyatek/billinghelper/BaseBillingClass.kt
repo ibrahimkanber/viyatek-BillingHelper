@@ -55,8 +55,8 @@ abstract class BaseBillingClass (context: Context) {
     protected fun startProcess() {SetUpConnection()}
 
     protected open fun handlePurchase(purchase: Purchase) {}
-    protected open fun getBillingClient() : BillingClient {return billingClient}
-    protected open fun getConnectionStatus() : Boolean {return  isConnected}
+    fun getBillingClient() : BillingClient {return billingClient}
+    fun getConnectionStatus() : Boolean {return  isConnected}
     protected open fun purchaseCanceledByUser(purchase: Purchase?) {}
     protected open fun purchaseError (purchase: Purchase?, billingResponseCode: Int) {}
 

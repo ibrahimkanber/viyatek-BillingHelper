@@ -37,4 +37,5 @@ class SoldSubscriptionManager(context: Context, val subscriptionRestoreListener 
             //NoSubsCanBeFound Make a Pref Check
         }
     }
+
 }

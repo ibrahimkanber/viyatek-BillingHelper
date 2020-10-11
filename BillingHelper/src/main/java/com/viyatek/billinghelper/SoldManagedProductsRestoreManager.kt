@@ -28,5 +28,4 @@ class SoldManagedProductsRestoreManager(context: Context, private val managedPro
         }
     }
 
-
 }
