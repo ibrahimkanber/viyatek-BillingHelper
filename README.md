@@ -60,3 +60,5 @@ This class handle whole process if you have both subscription and managed produc
             }
 
         })
+        
+        billingManager.init( SubsSkuList , ManagedProductSkuList )
