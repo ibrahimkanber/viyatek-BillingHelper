@@ -32,7 +32,7 @@ class BillingManager(private val context: Context, private val inAppPurchaseList
              if (managedProductsSkuList.contains(sku)) {
                  inAppPurchaseListener.ManagedProductPurchaseSucceded(purchase)
              } else {
-                 inAppPurchaseListener.ManagedProductPurchaseSucceded(purchase)
+                 inAppPurchaseListener.SubscriptionPurchaseSucceded(purchase)
              }
          } else if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {
              //handle pending state
@@ -42,6 +42,7 @@ class BillingManager(private val context: Context, private val inAppPurchaseList
 
     private fun queryPurchases() {
         querySubscriptions()
+        queryInAppProducts()
     }
 
     private fun queryInAppProducts() {
@@ -78,11 +79,10 @@ class BillingManager(private val context: Context, private val inAppPurchaseList
             //make interface call
             //Active Purchase Found
             inAppPurchaseListener.ActiveSubscriptionDataFetched(activePurchase)
-            queryInAppProducts()
+
 
         } else {
             inAppPurchaseListener.NoActiveSubscriptionCanFetched()
-            queryInAppProducts()
             //NoSubsCanBeFound Make a Pref Check
         }
     }
