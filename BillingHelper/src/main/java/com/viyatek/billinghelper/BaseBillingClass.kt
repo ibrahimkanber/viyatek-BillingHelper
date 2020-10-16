@@ -9,8 +9,6 @@ abstract class BaseBillingClass (context: Context) {
 
     protected abstract fun ConnectedGooglePlay()
 
-
-
     private val purchaseUpdateListener =
         PurchasesUpdatedListener { billingResult, purchases ->
             // To be implemented in a later section.
