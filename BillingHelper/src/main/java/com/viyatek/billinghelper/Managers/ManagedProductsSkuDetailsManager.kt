@@ -2,8 +2,8 @@ package com.viyatek.billinghelper.Managers
 
 import android.content.Context
 import com.viyatek.billinghelper.Handlers.QueryManagedProductsSkuHandler
+import com.viyatek.billinghelper.Interfaces.IManagedProductsSkuDetails
 import com.viyatek.helper.BillingHelper.BaseBillingClass
-import com.viyatek.helper.BillingHelper.IManagedProductsSkuDetails
 
 class ManagedProductsSkuDetailsManager(context: Context, val managedProductsSkuDetailsListener : IManagedProductsSkuDetails) : BaseBillingClass(context) {
 

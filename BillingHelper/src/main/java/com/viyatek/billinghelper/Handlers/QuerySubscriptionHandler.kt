@@ -2,8 +2,8 @@ package com.viyatek.billinghelper.Handlers
 
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.Purchase
-import com.viyatek.helper.BillingHelper.IRestoreSubscription
-import com.viyatek.helper.BillingHelper.InAppPurchaseListener
+import com.viyatek.billinghelper.Interfaces.IRestoreSubscription
+import com.viyatek.billinghelper.Interfaces.InAppPurchaseListener
 
 
 internal class QuerySubscriptionHandler(private val billingClient: BillingClient) {

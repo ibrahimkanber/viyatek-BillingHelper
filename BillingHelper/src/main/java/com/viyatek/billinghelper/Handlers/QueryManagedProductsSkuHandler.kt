@@ -3,8 +3,8 @@ package com.viyatek.billinghelper.Handlers
 import android.util.Log
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.SkuDetailsParams
-import com.viyatek.helper.BillingHelper.IManagedProductsSkuDetails
-import com.viyatek.helper.BillingHelper.InAppPurchaseListener
+import com.viyatek.billinghelper.Interfaces.IManagedProductsSkuDetails
+import com.viyatek.billinghelper.Interfaces.InAppPurchaseListener
 
 class QueryManagedProductsSkuHandler(private val billingClient: BillingClient, private val managedProductsSkuList : List<String>) {
 

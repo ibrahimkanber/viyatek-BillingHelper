@@ -1,0 +1,3 @@
+package com.viyatek.billinghelper.Interfaces
+
+interface SubscriptionListener : IRestoreSubscription, ISubsSkuDetails, ISubscriptionPurchase

@@ -2,8 +2,8 @@ package com.viyatek.billinghelper.Managers
 
 import android.content.Context
 import com.viyatek.billinghelper.Handlers.QuerySubscriptionSkuHandler
+import com.viyatek.billinghelper.Interfaces.ISubsSkuDetails
 import com.viyatek.helper.BillingHelper.BaseBillingClass
-import com.viyatek.helper.BillingHelper.ISubsSkuDetails
 
 class SubscriptionSkuDetailsManager(context: Context, val subscriptionSkuDetailsListener : ISubsSkuDetails) : BaseBillingClass(context) {
 

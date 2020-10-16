@@ -1,6 +1,0 @@
-package com.viyatek.billinghelper
-
-import com.viyatek.helper.BillingHelper.IRestoreManagedProducts
-import com.viyatek.helper.BillingHelper.IRestoreSubscription
-
-interface ProductRestoreListener : IRestoreSubscription, IRestoreManagedProducts

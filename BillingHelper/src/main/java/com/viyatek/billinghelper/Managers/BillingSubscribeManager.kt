@@ -6,8 +6,8 @@ import com.android.billingclient.api.Purchase
 import com.viyatek.billinghelper.Handlers.AckHandler
 import com.viyatek.billinghelper.Handlers.QuerySubscriptionHandler
 import com.viyatek.billinghelper.Handlers.QuerySubscriptionSkuHandler
+import com.viyatek.billinghelper.Interfaces.SubscriptionListener
 import com.viyatek.helper.BillingHelper.BaseBillingClass
-import com.viyatek.helper.BillingHelper.SubscriptionListener
 
 class BillingSubscribeManager(private val context: Context, private val subscriptionListener: SubscriptionListener) : BaseBillingClass(context) {
 

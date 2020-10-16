@@ -1,3 +1,3 @@
-package com.viyatek.helper.BillingHelper
+package com.viyatek.billinghelper.Interfaces
 
 interface InAppPurchaseListener : SubscriptionListener, ManagedProductListener

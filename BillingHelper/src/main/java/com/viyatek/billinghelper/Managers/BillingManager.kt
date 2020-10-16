@@ -5,8 +5,8 @@ import android.util.Log
 import android.widget.Toast
 import com.android.billingclient.api.Purchase
 import com.viyatek.billinghelper.Handlers.*
+import com.viyatek.billinghelper.Interfaces.InAppPurchaseListener
 import com.viyatek.helper.BillingHelper.BaseBillingClass
-import com.viyatek.helper.BillingHelper.InAppPurchaseListener
 
 class BillingManager(private val context: Context, private val inAppPurchaseListener: InAppPurchaseListener) : BaseBillingClass(context) {
 

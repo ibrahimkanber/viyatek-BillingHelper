@@ -1,4 +1,4 @@
-package com.viyatek.billinghelper
+package com.viyatek.billinghelper.Interfaces
 
 import com.android.billingclient.api.Purchase
 

@@ -6,8 +6,8 @@ import com.android.billingclient.api.Purchase
 import com.viyatek.billinghelper.Handlers.AckHandler
 import com.viyatek.billinghelper.Handlers.QueryManagedProductsHandler
 import com.viyatek.billinghelper.Handlers.QueryManagedProductsSkuHandler
+import com.viyatek.billinghelper.Interfaces.ManagedProductListener
 import com.viyatek.helper.BillingHelper.BaseBillingClass
-import com.viyatek.helper.BillingHelper.ManagedProductListener
 
 class BillingManageProductManager(
     val context: Context,
@@ -43,6 +43,4 @@ class BillingManageProductManager(
         }
 
          }
-
-
 }

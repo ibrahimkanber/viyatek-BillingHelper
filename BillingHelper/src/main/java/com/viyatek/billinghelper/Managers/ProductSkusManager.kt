@@ -3,7 +3,7 @@ package com.viyatek.billinghelper.Managers
 import android.content.Context
 import com.viyatek.billinghelper.Handlers.QueryManagedProductsSkuHandler
 import com.viyatek.billinghelper.Handlers.QuerySubscriptionSkuHandler
-import com.viyatek.billinghelper.ProductsSkuListener
+import com.viyatek.billinghelper.Interfaces.ProductsSkuListener
 import com.viyatek.helper.BillingHelper.BaseBillingClass
 
 class ProductSkusManager(context: Context, private val productSkuListener : ProductsSkuListener): BaseBillingClass(context) {

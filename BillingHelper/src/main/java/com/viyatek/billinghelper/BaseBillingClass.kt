@@ -3,8 +3,19 @@ package com.viyatek.helper.BillingHelper
 import android.content.Context
 import android.util.Log
 import com.android.billingclient.api.*
+import com.viyatek.facefind.helpers.KotlinSharedPrefHandler
 
 abstract class BaseBillingClass (context: Context) {
+
+    init {
+       val kotlinSharedPrefHandler = KotlinSharedPrefHandler(context)
+
+        if(!kotlinSharedPrefHandler.CheckUserExists(context , KotlinSharedPrefHandler.NEW_USER))
+        {
+            kotlinSharedPrefHandler.CreateLocalAccount(context)
+        }
+    }
+
     private var isConnected: Boolean = false
 
     protected abstract fun ConnectedGooglePlay()
@@ -49,9 +60,7 @@ abstract class BaseBillingClass (context: Context) {
             }
         })
     }
-
     protected fun startProcess() {SetUpConnection()}
-
     protected open fun handlePurchase(purchase: Purchase) {}
     fun getBillingClient() : BillingClient {return billingClient}
     fun getConnectionStatus() : Boolean {return  isConnected}
