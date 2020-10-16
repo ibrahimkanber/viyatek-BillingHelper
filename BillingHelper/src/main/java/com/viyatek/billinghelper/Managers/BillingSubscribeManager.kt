@@ -18,12 +18,12 @@ class BillingSubscribeManager(private val context: Context, private val subscrip
         super.startProcess()
     }
 
-     override fun ConnectedGooglePlay() {
+    override fun ConnectedGooglePlay() {
          QuerySubscriptionHandler(getBillingClient(), subscriptionListener).querySubscriptions()
          QuerySubscriptionSkuHandler(getBillingClient(), subscriptionSkuList, subscriptionListener).querySkuDetails()
      }
 
-     override fun handlePurchase(purchase: Purchase) {
+    override fun handlePurchase(purchase: Purchase) {
          val sku = purchase.sku
 
          if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED ) {
